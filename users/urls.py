@@ -10,6 +10,6 @@ urlpatterns = [
     path('profile/<str:pk>/', views.UserProfile.as_view(), name="user-profile"),
     path('account/', views.UserAccount.as_view(), name="account"),
 
-    path('edit-account/<str:pk>', views.EditAccount.as_view(), name="edit-account"),
+    path('edit-account/', views.EditAccount.as_view(), name="edit-account"),
 
 ]

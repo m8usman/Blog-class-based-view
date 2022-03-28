@@ -1,0 +1,34 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+
+<!-- Main Section -->
+<br>
+<div class="col-md-6">
+    <!-- jquery validation -->
+    <div class="card card-primary">
+        <div class="card-header">
+            <h3 class="card-title">Edit Account <small></small></h3>
+        </div>
+
+
+        <form class="form" method="POST" action="" enctype="multipart/form-data" id="quickForm" novalidate="novalidate">
+            {% csrf_token %}
+
+            <div class="card-body">
+                {% for field in form %}
+                <div class="form-group">
+                    <label for="formInput#text">{{field.label}}</label>
+                    {{field}}
+                </div>
+                {% endfor %}
+            </div>
+            <div class="card-footer">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% endblock content %}

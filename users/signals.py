@@ -13,7 +13,7 @@ def createProfile(sender, instance, created, **kwargs):
             email=user.email,
         )
 
-        subject = 'Welcome to DevSearch'
+        subject = 'Welcome to BlogApp'
         message = 'We are glad you are here!'
 
         send_mail(

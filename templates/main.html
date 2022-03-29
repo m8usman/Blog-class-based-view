@@ -22,34 +22,44 @@
     {% block extra_css %}{% endblock %}
 
 </head>
-<!--<body class="sidebar-closed sidebar-collapse">-->
-<body>
 
-{% include 'navbar.html' %}
+<body class="hold-transition sidebar-mini">
+<div class="wrapper">
+    {% include 'navbar.html' %}
 
-<div class="content-wrapper">
-    <section class="content">
-        <div class="container-fluid">
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper" style="min-height: 2646.44px;">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <div class="container-fluid">
 
                 {% if messages %}
 
-    {% for message in messages %}
-    <div class="alert  alert--{{message.tags}}">
-        <p class="alert__message">{{message}}</p>
-        <button class="alert__close">x</button>
+                {% for message in messages %}
+                <div class="alert  alert--{{message.tags}}">
+                    <p class="alert__message">{{message}}</p>
+                    <button class="alert__close">x</button>
+                </div>
+
+                {% endfor %}
+
+                {% endif %}
+
+                {% block content %}
+
+                {% endblock content %}
+            </div>
+        </section>
     </div>
 
-    {% endfor %}
 
-    {% endif %}
-
-            {% block content %}
-
-            {% endblock content %}
-        </div>
-    </section>
+    <!-- Control Sidebar -->
+    <aside class="control-sidebar control-sidebar-dark">
+        <!-- Control sidebar content goes here -->
+    </aside>
+    <!-- /.control-sidebar -->
 </div>
-
+<!-- ./wrapper -->
 
 <!-- jQuery -->
 <script src="{% static 'plugins/jquery/jquery.min.js' %}"></script>

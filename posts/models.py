@@ -1,6 +1,8 @@
 import uuid
 
 from django.db import models
+from django.template.defaultfilters import slugify
+from django.urls import reverse
 
 from taxonomies.models import Tag, Category
 from users.models import User
@@ -21,6 +23,8 @@ class Post(models.Model):
     publish_to = models.DateTimeField(null=True, blank=True)
     id = models.UUIDField(default=uuid.uuid4, unique=True,
                           primary_key=True, editable=False)
+
+    slug = models.SlugField(null=False, unique=True)
 
     def __str__(self):
         return self.title
@@ -44,6 +48,14 @@ class Post(models.Model):
     def commenters(self):
         queryset = self.comment_set.all().values_list('created_by__id', flat=True)
         return queryset
+
+    def get_absolute_url(self):
+        return reverse("post", kwargs={"slug": self.slug})
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.title)
+        return super().save(*args, **kwargs)
 
 
 class Comment(models.Model):

@@ -1,9 +1,9 @@
-from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import ListView, DetailView
-from django.views.generic.edit import FormMixin
 from django.contrib import messages
-from posts.forms import CommentForm
-from posts.models import Post
+from posts.models import Post, Comment
+from users.models import User
 
 
 class Posts(ListView):
@@ -12,20 +12,22 @@ class Posts(ListView):
     context_object_name = 'posts'
 
 
-class Post(DetailView, FormMixin):
+class PostView(DetailView):
     model = Post
-    form_class = CommentForm
     template_name = 'posts/single-post.html'
 
-    def form_valid(self, form, request):
-        comment = form.save(commit=False)
-        comment.post = self.get_object()
-        comment.created_by = request.user
-        comment.save()
 
-        messages.success(request, 'Your comment was successfully submitted!')
+@login_required
+def add_comment(request, slug):
+    post = get_object_or_404(Post, slug=slug)
+    if request.method == 'POST':
+        user = User.objects.get(id=request.POST.get('user_id'))
+        text = request.POST.get('text')
+        Comment(created_by=user, post=post, comment=text).save()
+        messages.success(request, "Your comment has been added successfully.")
 
-        return super().form_valid(form)
+    return redirect('post', slug=slug)
+
 
 
 

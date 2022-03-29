@@ -86,6 +86,7 @@ class Profile(models.Model):
         null=True, blank=True, upload_to='profiles/', default="profiles/user-default.png")
     social_github = models.CharField(max_length=200, blank=True, null=True)
     created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True, null=True)
     id = models.UUIDField(default=uuid.uuid4, unique=True,
                           primary_key=True, editable=False)
 

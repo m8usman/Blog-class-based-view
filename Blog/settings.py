@@ -40,6 +40,8 @@ INSTALLED_APPS = [
 
     'users.apps.UsersConfig',
     'crispy_forms',
+    'taxonomies.apps.TaxonomiesConfig',
+    'posts.apps.PostsConfig',
 
 ]
 

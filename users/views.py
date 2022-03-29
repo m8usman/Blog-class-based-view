@@ -1,15 +1,12 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate, logout
-from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.urls import reverse_lazy
-from django.utils.decorators import method_decorator
 from django.views.generic.base import View
 from django.views.generic import TemplateView, CreateView, ListView, DetailView, UpdateView, FormView
 from .models import User, Profile
-from .forms import CustomUserCreationForm, ProfileForm, LoginForm
+from .forms import CustomUserCreationForm, ProfileForm, LoginForm, CustomPasswordResetFrom
 
 
 class LoginUser(FormView):
@@ -40,13 +37,12 @@ class RegisterUser(CreateView):
     model = User
     form_class = CustomUserCreationForm
     template_name = 'users/register.html'
-    success_url = reverse_lazy('account')
 
-    def form_valid(self, form):
+    def form_valid(self, form, ):
         user = form.save()
         messages.success(self.request, 'User account was created!')
         login(self.request, user)
-        return redirect('account')
+        return redirect('/edit-account/'+str(user.profile.id)+'/')
 
 
 class Profiles(ListView):
@@ -70,4 +66,12 @@ class UserAccount(LoginRequiredMixin, TemplateView):
 class EditAccount(LoginRequiredMixin, UpdateView):
     template_name = 'users/profile_form.html'
     model = Profile
-    success_url = reverse_lazy('profiles')
+    form_class = ProfileForm
+    success_url = reverse_lazy('account')
+
+
+# class ResetPassword(UpdateView):
+#     model = User
+#     fields = '__all__'
+#     success_url = reverse_lazy('account')
+#     template_name = 'reset.html'

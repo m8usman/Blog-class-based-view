@@ -12,6 +12,13 @@ class CustomUserCreationForm(UserCreationForm):
         fields = ['username', 'email', 'password1']
 
 
+class CustomPasswordResetFrom(UserCreationForm):
+
+    class Meta:
+        model = User
+        fields = ['password1', ]
+
+
 class ProfileForm(ModelForm):
     class Meta:
         model = Profile

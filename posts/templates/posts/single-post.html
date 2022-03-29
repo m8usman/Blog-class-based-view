@@ -1,0 +1,100 @@
+{% extends 'main.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+
+<div class="card-body">
+    <div class="tab-content">
+        <div class="active tab-pane" id="activity">
+
+
+            <!-- Post -->
+            <div class="post">
+                <div class="user-block">
+                    <img class="img-circle img-bordered-sm" src="{{post.created_by.profile.imageURL}}" alt="User Image">
+                    <span class="username">
+                          <a href="#">{{post.created_by.profile.first_name}} {{post.created_by.profile.last_name}}</a>
+                          <a href="#" class="float-right btn-tool"><i class="fas fa-times"></i></a>
+                        </span>
+                    <span class="description">Published at {{post.publish_from}}</span>
+                </div>
+                <!-- /.user-block -->
+                <div class="row mb-3">
+                    <div class="col-sm-6">
+                        <img class="img-fluid" src="{{post.imageURL}}" alt="Photo">
+                    </div>
+                    <!-- /.col -->
+                    <div class="col-sm-6">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <h1>{{post.title}}</h1>
+                                <h4><b>{{post.description}}</b></h4>
+                                <p>{{post.content}}</p>
+
+                            </div>
+                        </div>
+                        <!-- /.row -->
+                    </div>
+                    <!-- /.col -->
+                </div>
+                <!-- /.row -->
+
+                <p>
+
+                    <span class="float-right">
+                          <a href="#" class="link-black text-sm">
+                            <i class="far fa-comments mr-1"></i> Comments ({{post.getCommentCount}})
+                          </a>
+                        </span>
+                </p>
+
+                <!--                <input class="form-control form-control-sm" type="text" placeholder="Type a comment">-->
+                <!--                <br>-->
+                <!--                <button type="submit" class="btn btn-danger">Send</button>-->
+            </div>
+
+            <form method="post">
+                {% csrf_token %}
+
+                {{form|crispy}}
+
+                <button type="submit" class="btn btn-danger">Add Comment</button>
+
+            </form>
+            <!-- /.post -->
+        </div>
+        <!-- /.tab-pane -->
+
+        <br>
+
+<!--        comments-->
+
+        <div class="row">
+                <div class="col-12">
+                  <h4>Recent Comments</h4>
+
+                    {% for comment in post.comment_set.all %}
+                    <div class="post">
+                      <div class="user-block">
+                        <img class="img-circle img-bordered-sm" src="{{comment.created_by.profile.imageURL}}" alt="user image">
+                        <span class="username">
+                          <a href="#">{{comment.created_by.profile.first_name}} {{comment.created_by.profile.last_name}}</a>
+                        </span>
+                        <span class="description">Shared publicly - {{comment.created_at}}</span>
+                      </div>
+                      <!-- /.user-block -->
+                      <p>
+                          {{comment.comment}}
+                      </p>
+
+
+                    </div>
+
+                    {% endfor %}
+
+                    </div>
+                </div>
+              </div>
+
+
+        {% endblock content %}

@@ -1,0 +1,95 @@
+{% extends "main.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Create Post</h1>
+            </div>
+            <div class="col-sm-6">
+
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+
+<!-- Main content -->
+<section class="content">
+    <div class="container-fluid">
+
+        <div class="card card-secondary">
+            <div class="card-header">
+                <h3 class="card-title">New Post</h3>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+
+
+                <form method="POST">
+                    {% csrf_token %}
+
+                    <div class="row">
+                        <div class="col-sm-6">
+                            {{ form.title|as_crispy_field }}
+                            {{ form.description|as_crispy_field }}
+
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    {{ form.tags|as_crispy_field }}
+                                    <a onclick="addTag()" class="btn btn-secondary" type="submit"><i class="fas fa-plus"></i> Add Tag</a>
+
+                                </div>
+                                <div class="col-sm-6">
+                                    {{ form.categories|as_crispy_field }}
+                                    <a onclick="addCategory()" class="btn btn-secondary" type="submit"><i class="fas fa-plus"></i> Add Category</a>
+
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                            {{ form.content|as_crispy_field }}
+                            {{ form.featured_image|as_crispy_field }}
+
+                        </div>
+                    </div>
+
+
+                    {{ form.is_published|as_crispy_field }}
+
+
+                    <div class="form-group">
+                        <button class="btn btn-secondary float-right" type="submit">Create Post</button>
+                    </div>
+                </form>
+
+            </div>
+            <!-- /.card-body -->
+        </div>
+
+    </div>
+</section>
+
+<div class="modal fade" tabindex="-1" role="dialog" id="modal">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content"></div>
+  </div>
+</div>
+
+<button class="signup-btn btn btn-primary" type="button" name="button">Sign up</button>
+
+<script type="text/javascript">
+  $(function () {
+    // Sign up button
+    $(".signup-btn").modalForm({formURL: "{% url 'tag_create' %}"});
+
+  });
+</script>
+
+
+
+{% endblock content %}

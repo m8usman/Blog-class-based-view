@@ -1,4 +1,5 @@
 import uuid
+from datetime import datetime
 
 from django.db import models
 from django.template.defaultfilters import slugify
@@ -18,8 +19,8 @@ class Post(models.Model):
     categories = models.ManyToManyField(Category, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    is_published = models.BooleanField(default=True)
-    publish_from = models.DateTimeField(auto_now=True)
+    is_published = models.BooleanField(default=False)
+    publish_from = models.DateTimeField(default=datetime.now(), blank=True)
     publish_to = models.DateTimeField(null=True, blank=True)
     id = models.UUIDField(default=uuid.uuid4, unique=True,
                           primary_key=True, editable=False)

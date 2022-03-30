@@ -1,0 +1,28 @@
+{% load crispy_forms_tags %}
+{% load static %}
+    <!-- Theme style -->
+    <link rel="stylesheet" href="{% static 'css/adminlte.min.css' %}">
+
+
+<div class="card card-secondary">
+    <div class="card-header">
+        <h3 class="card-title">Create New Tag</h3>
+    </div>
+    <!-- /.card-header -->
+    <div class="card-body">
+
+
+        <form method="POST">
+            {% csrf_token %}
+
+            {{form|crispy}}
+
+
+
+            <div class="form-group">
+                <button class="btn btn-secondary float-right" type="submit">Create Post</button>
+            </div>
+        </form>
+
+    </div>
+</div>

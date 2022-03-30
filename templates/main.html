@@ -29,28 +29,24 @@
 
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper" style="min-height: 2646.44px;">
-        <!-- Content Header (Page header) -->
-        <section class="content-header">
-            <div class="container-fluid">
 
-                {% if messages %}
+        {% if messages %}
 
-                {% for message in messages %}
-                <div class="alert  alert--{{message.tags}}">
-                    <p class="alert__message">{{message}}</p>
-                    <button class="alert__close">x</button>
-                </div>
+        {% for message in messages %}
+        <div class="alert  alert--{{message.tags}}">
+            <p class="alert__message">{{message}}</p>
+            <button class="alert__close">x</button>
+        </div>
 
-                {% endfor %}
+        {% endfor %}
 
-                {% endif %}
+        {% endif %}
 
-                {% block content %}
+        {% block content %}
 
-                {% endblock content %}
-            </div>
-        </section>
+        {% endblock content %}
     </div>
+  <!-- /.content-wrapper -->
 
 
     <!-- Control Sidebar -->
@@ -67,6 +63,7 @@
 <script src="{% static 'plugins/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
 <!-- AdminLTE App -->
 <script src="{% static 'dist/js/adminlte.min.js' %}"></script>
+ <script src="{% static 'js/jquery.bootstrap.modal.forms.min.js' %}"></script>
 
 {% block extra_js %}{% endblock %}
 

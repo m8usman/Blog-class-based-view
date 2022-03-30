@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'taxonomies.apps.TaxonomiesConfig',
     'posts.apps.PostsConfig',
 
+
 ]
 
 AUTH_USER_MODEL = 'users.User'

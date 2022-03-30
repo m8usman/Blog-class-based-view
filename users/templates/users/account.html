@@ -2,46 +2,104 @@
 
 {% block content %}
 
-<!-- Main Section -->
 
-
-<div class="col-md-5 pt-3 ml-auto mr-auto">
-
-    <a href="{% url 'user-profile' profile.id %}">
-        <div class="card card-primary card-outline">
-            <div class="card-body box-profile">
-                <div class="text-center">
-                    <img class="profile-user-img img-fluid img-circle" src="{{profile.imageURL}}"
-                         alt="User profile picture">
-                </div>
-                {% if profile.first_name %}
-                <h3 class="profile-username text-center">{{profile.first_name}} {{profile.last_name}}</h3>
-                {% endif %}
-                <p class="text-muted text-center">{{profile.email}}</p>
-                <p class="text-muted text-center">Username: {{profile.username}}</p>
-
-                <ul class="list-group list-group-unbordered mb-3">
-
-
-                    <li class="list-group-item">
-                        <b>github</b> <a href="{{profile.social_github}}"
-                                         class="float-right">{{profile.social_github}}</a>
-                    </li>
-
-
-                </ul>
-
-                <a href="{%url 'edit-account' profile.pk %}" class="btn btn-primary btn-block"><b>Edit Account</b></a>
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Dashboard</h1>
+            </div>
+            <div class="col-sm-6">
 
             </div>
-            <div class="col-4 pb-3 pt-3 ml-auto mr-auto">
-                <a href="{% url 'logout' %}" class="btn btn-primary btn-block btn-danger">Logout</a>
-            </div>
-            <!-- /.card-body -->
         </div>
-    </a>
-</div>
+    </div><!-- /.container-fluid -->
+</section>
 
+<!-- Main content -->
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+
+            <div class="col-md-4">
+                <a href="{% url 'user-profile' profile.id %}">
+                    <div class="card card-primary card-outline">
+                        <div class="card-body box-profile">
+                            <div class="text-center">
+                                <img class="profile-user-img img-fluid img-circle" src="{{profile.imageURL}}"
+                                     alt="User profile picture">
+                            </div>
+                            {% if profile.first_name %}
+                            <h3 class="profile-username text-center">{{profile.first_name}} {{profile.last_name}}</h3>
+                            {% endif %}
+                            <p class="text-muted text-center">{{profile.email}}</p>
+                            <p class="text-muted text-center">Username: {{profile.username}}</p>
+
+                            <ul class="list-group list-group-unbordered mb-3">
+
+
+                                <li class="list-group-item">
+                                    <b>github</b> <a href="{{profile.social_github}}"
+                                                     class="float-right">{{profile.social_github}}</a>
+                                </li>
+
+
+                            </ul>
+
+                            <a href="{%url 'edit-account' profile.pk %}" class="btn btn-primary btn-block"><b>Edit
+                                Account</b></a>
+
+                        </div>
+                        <div class="col-4 pb-3 pt-3 ml-auto mr-auto">
+                            <a href="{% url 'logout' %}" class="btn btn-primary btn-block btn-danger">Logout</a>
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                </a>
+            </div>
+
+            <!-- /.col -->
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header p-2">
+                        <h7><b>At a Glance</b></h7>
+                    </div><!-- /.card-header -->
+                    <div class="card-body">
+                        <div class="tab-content">
+                            <div class="active tab-pane" id="activity">
+
+                                <div class="row">
+                                    <div class="col-12 col-sm-4">
+                                        <p>
+                                            <i class="nav-icon fas fa-book mr-2"></i> 7 Posts
+                                        </p>
+
+                                    </div>
+                                    <div class="col-12 col-sm-4">
+                                        <p>
+
+                                            <i class="nav-icon fas fa-comment mr-2"></i> 4 Comments
+                                        </p>
+
+                                    </div>
+
+                                </div>
+
+
+                                <!-- /.tab-pane -->
+                            </div>
+                            <!-- /.tab-content -->
+                        </div><!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
+                </div>
+                <!-- /.col -->
+            </div>
+            <!-- /.row -->
+        </div><!-- /.container-fluid -->
+</section>
+<!-- /.content -->
 
 
 {% endblock %}

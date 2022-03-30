@@ -28,7 +28,7 @@
             <div class="card-body">
 
 
-                <form method="POST">
+                <form enctype="multipart/form-data" method="POST">
                     {% csrf_token %}
 
                     <div class="row">
@@ -63,7 +63,7 @@
 
 
                     <div class="form-group">
-                        <button class="btn btn-secondary float-right" type="submit">Create Post</button>
+                        <button class="btn btn-secondary float-right" type="submit">Save Post</button>
                     </div>
                 </form>
 

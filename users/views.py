@@ -14,6 +14,12 @@ class LoginUser(FormView):
     template_name = 'users/login.html'
     success_url = '/account'
 
+    def get_context_data(self, **kwargs):
+        queryset = kwargs.pop('object_list', None)
+        if queryset is None:
+            self.object_list = self.model.objects.all()
+        return super().get_context_data(**kwargs)
+
     def form_valid(self, form):
 
         user = authenticate(email=self.request.POST['email'], password=self.request.POST['password'])
@@ -44,6 +50,12 @@ class RegisterUser(CreateView):
         login(self.request, user)
         return redirect('/edit-account/'+str(user.profile.id)+'/')
 
+    def get_context_data(self, **kwargs):
+        queryset = kwargs.pop('object_list', None)
+        if queryset is None:
+            self.object_list = self.model.objects.all()
+        return super().get_context_data(**kwargs)
+
 
 class Profiles(ListView):
     template_name = 'users/profiles.html'
@@ -68,6 +80,12 @@ class EditAccount(LoginRequiredMixin, UpdateView):
     model = Profile
     form_class = ProfileForm
     success_url = reverse_lazy('account')
+
+    def get_context_data(self, **kwargs):
+        queryset = kwargs.pop('object_list', None)
+        if queryset is None:
+            self.object_list = self.model.objects.all()
+        return super().get_context_data(**kwargs)
 
 
 # class ResetPassword(UpdateView):

@@ -80,7 +80,7 @@
 
                                 <div class="modal fade text-left" id="tag-{{tag.id}}">
                                     <div class="modal-dialog">
-                                        <form method="POST" action="{% url 'tag-delete' tag.id %}">
+                                        <form method="POST" action="{% url 'tag-delete' tag.id %}" novalidate>
                                             {% csrf_token %}
                                             <div class="modal-content">
                                                 <div class="modal-header">

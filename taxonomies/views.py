@@ -12,7 +12,13 @@ class TagListView(CreateView, ListView):
     template_name = 'taxonomies/tags.html'
     context_object_name = 'tags'
     success_url = 'tags'
-    paginate_by = 6
+    paginate_by = 8
+
+    def get_context_data(self, **kwargs):
+        queryset = kwargs.pop('object_list', None)
+        if queryset is None:
+            self.object_list = self.model.objects.all()
+        return super().get_context_data(**kwargs)
 
     def form_valid(self, form):
         form.instance.created_by = self.request.user
@@ -25,7 +31,13 @@ class CategoryListView(CreateView, ListView):
     template_name = 'taxonomies/categories.html'
     context_object_name = 'categories'
     success_url = 'categories'
-    paginate_by = 6
+    paginate_by = 8
+
+    def get_context_data(self, **kwargs):
+        queryset = kwargs.pop('object_list', None)
+        if queryset is None:
+            self.object_list = self.model.objects.all()
+        return super().get_context_data(**kwargs)
 
     def form_valid(self, form):
         form.instance.created_by = self.request.user
@@ -36,6 +48,12 @@ class TagUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Tag
     form_class = TagForm
     template_name = 'taxonomies/tag_form.html'
+
+    def get_context_data(self, **kwargs):
+        queryset = kwargs.pop('object_list', None)
+        if queryset is None:
+            self.object_list = self.model.objects.all()
+        return super().get_context_data(**kwargs)
 
     def form_valid(self, form):
         form.instance.created_by = self.request.user
@@ -63,6 +81,12 @@ class CategoryUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Category
     form_class = CategoryForm
     template_name = 'taxonomies/tag_form.html'
+
+    def get_context_data(self, **kwargs):
+        queryset = kwargs.pop('object_list', None)
+        if queryset is None:
+            self.object_list = self.model.objects.all()
+        return super().get_context_data(**kwargs)
 
     def form_valid(self, form):
         form.instance.created_by = self.request.user

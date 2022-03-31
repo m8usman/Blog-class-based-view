@@ -58,7 +58,9 @@
                         </a>
                         <br>
                         <small>
+                            {% if post.is_published %}
                             Published at {{post.publish_from}}
+                            {% endif %}
                         </small>
                     </td>
                     <td>

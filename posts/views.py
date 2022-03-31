@@ -1,11 +1,12 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.shortcuts import render, redirect, get_object_or_404
-from django.views.generic import ListView, DetailView, DeleteView, CreateView, UpdateView
+from django.views.generic import ListView, DetailView, DeleteView, CreateView, UpdateView, TemplateView
 from django.contrib import messages
 
 from posts.forms import PostForm
 from posts.models import Post, Comment
+from taxonomies.models import Category, Tag
 from users.models import User
 
 
@@ -13,6 +14,7 @@ class Posts(ListView):
     model = Post
     template_name = 'posts/posts.html'
     context_object_name = 'posts'
+    paginate_by = 6
 
 
 class PostView(DetailView):
@@ -55,6 +57,11 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         return False
 
 
+# comments starting
+
+
+
+
 @login_required
 def add_comment(request, slug):
     post = get_object_or_404(Post, slug=slug)
@@ -65,6 +72,20 @@ def add_comment(request, slug):
         messages.success(request, "Your comment has been added successfully.")
 
     return redirect('post', slug=slug)
+
+
+class DashboardView(TemplateView):
+    template_name = 'posts/dashboard.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        posts = Post.objects.count()
+        comments = Comment.objects.count()
+        tags = Tag.objects.count()
+        categories = Category.objects.count()
+        context = {'posts': posts, 'comments': comments, 'tags': tags, 'categories': categories}
+        return context
+
 
 
 

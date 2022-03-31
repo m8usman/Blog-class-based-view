@@ -13,7 +13,7 @@ class Post(models.Model):
     created_by = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=200)
     description = models.CharField(max_length=300, null=True, blank=True)
-    content = models.RichTextField(null=True, blank=True)
+    content = RichTextField(null=True, blank=True)
     featured_image = models.ImageField(null=True, blank=True, default="default.jpg")
     tags = models.ManyToManyField(Tag, blank=True)
     categories = models.ManyToManyField(Category, blank=True)

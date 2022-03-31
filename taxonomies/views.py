@@ -12,6 +12,7 @@ class TagListView(CreateView, ListView):
     template_name = 'taxonomies/tags.html'
     context_object_name = 'tags'
     success_url = 'tags'
+    paginate_by = 6
 
     def form_valid(self, form):
         form.instance.created_by = self.request.user
@@ -24,6 +25,7 @@ class CategoryListView(CreateView, ListView):
     template_name = 'taxonomies/categories.html'
     context_object_name = 'categories'
     success_url = 'categories'
+    paginate_by = 6
 
     def form_valid(self, form):
         form.instance.created_by = self.request.user

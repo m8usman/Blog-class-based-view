@@ -42,9 +42,11 @@ INSTALLED_APPS = [
     'crispy_forms',
     'taxonomies.apps.TaxonomiesConfig',
     'posts.apps.PostsConfig',
+    'ckeditor'
 
 
 ]
+
 
 AUTH_USER_MODEL = 'users.User'
 CRISPY_TEMPLATE_PACK = 'bootstrap4'

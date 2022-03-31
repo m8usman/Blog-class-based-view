@@ -32,34 +32,49 @@
                     {% csrf_token %}
 
                     <div class="row">
-                        <div class="col-sm-6">
+                        <div class="col-sm-8">
                             {{ form.title|as_crispy_field }}
                             {{ form.description|as_crispy_field }}
+                            {{ form.content|as_crispy_field }}
+
+                        </div>
+
+                        <div class="col-sm-4">
 
                             <div class="row">
-                                <div class="col-sm-6">
-                                    {{ form.tags|as_crispy_field }}
-                                    <a onclick="addTag()" class="btn btn-secondary" type="submit"><i class="fas fa-plus"></i> Add Tag</a>
+                                <div class="col-sm-2">
+
 
                                 </div>
                                 <div class="col-sm-6">
-                                    {{ form.categories|as_crispy_field }}
-                                    <a onclick="addCategory()" class="btn btn-secondary" type="submit"><i class="fas fa-plus"></i> Add Category</a>
 
+                                    {{ form.categories|as_crispy_field }}
+                                    <a onclick="addCategory()" class="btn btn-secondary" type="submit"><i
+                                            class="fas fa-plus"></i> Add Category</a>
+
+                                    <br><br><br>
+                                    {{ form.tags|as_crispy_field }}
+                                    <a onclick="addTag()" class="btn btn-secondary" type="submit"><i
+                                            class="fas fa-plus"></i> Add Tag</a>
+
+                                    <br><br><br>
+
+                                    {{ form.featured_image|as_crispy_field }}
+
+                                    <br><br><br>
+
+                                    {{ form.is_published|as_crispy_field }}
 
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="col-sm-6">
-                            {{ form.content|as_crispy_field }}
-                            {{ form.featured_image|as_crispy_field }}
+
 
                         </div>
                     </div>
 
 
-                    {{ form.is_published|as_crispy_field }}
+
 
 
                     <div class="form-group">
@@ -73,9 +88,6 @@
 
     </div>
 </section>
-
-
-
 
 
 {% endblock content %}

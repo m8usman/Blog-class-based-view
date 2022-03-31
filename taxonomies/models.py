@@ -7,7 +7,7 @@ from users.models import User
 
 class Category(models.Model):
     name = models.CharField(max_length=200)
-    description = models.CharField(max_length=300)
+    description = models.TextField(max_length=300)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     id = models.UUIDField(default=uuid.uuid4, unique=True,
@@ -20,7 +20,7 @@ class Category(models.Model):
 
 class Tag(models.Model):
     name = models.CharField(max_length=200)
-    description = models.CharField(max_length=300)
+    description = models.TextField(max_length=300)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     id = models.UUIDField(default=uuid.uuid4, unique=True,

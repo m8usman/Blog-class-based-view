@@ -50,8 +50,14 @@
 <div class="wrapper">
     {% include 'navbar.html' %}
 
+
+
+    {% if user.is_authenticated %}
+
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper" style="min-height: 2646.44px;">
+
+                    {% endif %}
 
         {% if messages %}
 

@@ -7,6 +7,7 @@
   width: 100%;
 }
 
+
 </style>
 
 
@@ -61,14 +62,19 @@
                                 </div>
                                 <div class="col-sm-6">
 
-                                    {{ form.categories|as_crispy_field }}
-                                    <a onclick="addCategory()" class="btn btn-secondary" type="submit"><i
-                                            class="fas fa-plus"></i> Add Category</a>
+                                    <div style='max-height:185px; overflow:scroll;'>
+
+                                        {{ form.categories|as_crispy_field }}
+
+                                    </div>
 
                                     <br><br><br>
-                                    {{ form.tags|as_crispy_field }}
-                                    <a onclick="addTag()" class="btn btn-secondary" type="submit"><i
-                                            class="fas fa-plus"></i> Add Tag</a>
+
+                                    <div style='max-height:185px; overflow:scroll;'>
+
+                                        {{ form.tags|as_crispy_field }}
+
+                                    </div>
 
                                     <br><br><br>
 

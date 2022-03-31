@@ -57,11 +57,6 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         return False
 
 
-# comments starting
-
-
-
-
 @login_required
 def add_comment(request, slug):
     post = get_object_or_404(Post, slug=slug)

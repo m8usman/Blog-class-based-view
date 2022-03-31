@@ -71,14 +71,14 @@
                                 </a>
 
                                 <button type="button" class="btn btn-danger btn-sm" data-toggle="modal"
-                                        data-target="#modal-default">
+                                        data-target="#tag-{{tag.id}}">
                                     <i class="fas fa-trash">
                                     </i>
                                     Delete
                                 </button>
 
 
-                                <div class="modal fade text-left" id="modal-default">
+                                <div class="modal fade text-left" id="tag-{{tag.id}}">
                                     <div class="modal-dialog">
                                         <form method="POST" action="{% url 'tag-delete' tag.id %}">
                                             {% csrf_token %}

@@ -1,6 +1,10 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.contrib.messages.views import SuccessMessageMixin
+from django.forms import model_to_dict
+from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
+from django.views.generic import View
 from django.views.generic import ListView, DetailView, DeleteView, CreateView, UpdateView, TemplateView
 from django.contrib import messages
 
@@ -93,6 +97,27 @@ class DashboardView(TemplateView):
         context = {'posts': posts, 'comments': comments, 'tags': tags, 'categories': categories}
         return context
 
+
+class StatusUnPublishView(SuccessMessageMixin, View):
+    success_message = 'status updated successfully!!!!'
+
+    def post(self, request, slug):
+        post = Post.objects.get(slug=slug)
+        post.is_published = False
+        post.save()
+        messages.success(self.request, "Post unpublished")
+        return JsonResponse({'post': model_to_dict(post)}, status=200)
+
+
+class StatusPublishView(SuccessMessageMixin, View):
+    success_message = 'status updated successfully!!!!'
+
+    def post(self, request, slug):
+        post = Post.objects.get(slug=slug)
+        post.is_published = True
+        post.save()
+        messages.success(self.request, "Post Published")
+        return JsonResponse({'post': model_to_dict(post)}, status=200)
 
 
 

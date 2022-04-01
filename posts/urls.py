@@ -9,4 +9,7 @@ urlpatterns = [
     path('post/new/', views.PostCreateView.as_view(), name='post_create'),
     path('post/<str:pk>/update/', views.PostUpdateView.as_view(), name='post_update'),
     path('post/<str:pk>/delete/', views.PostDeleteView.as_view(), name='post_delete'),
+
+    path('post/<slug:slug>/published/', views.StatusPublishView.as_view(), name='status_updated_url'),
+    path('post/<slug:slug>/unpublished/', views.StatusUnPublishView.as_view(), name='status_updated_url'),
 ]

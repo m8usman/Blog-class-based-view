@@ -1,8 +1,8 @@
 from django.forms import ModelForm
 from django import forms
-
-
 from .models import Comment, Post
+from django.contrib.admin.widgets import  AdminDateWidget, AdminTimeWidget, AdminSplitDateTime
+
 
 
 class CommentForm(ModelForm):
@@ -18,13 +18,13 @@ class CommentForm(ModelForm):
 class PostForm(ModelForm):
     class Meta:
         model = Post
-        fields = ['title', 'description', 'content', 'featured_image', 'tags', 'categories', 'is_published']
+        fields = ['title', 'description', 'content', 'featured_image', 'tags', 'categories', 'publish_from', 'publish_to']
 
         widgets = {
             'tags': forms.CheckboxSelectMultiple(),
             'categories': forms.CheckboxSelectMultiple(),
-            'publish_from': forms.SelectDateWidget(),
-            'publish_to': forms.SelectDateWidget(),
+            'publish_from': AdminSplitDateTime(),
+            'publish_to': AdminSplitDateTime(),
         }
 
 

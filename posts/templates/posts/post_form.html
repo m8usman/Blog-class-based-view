@@ -8,6 +8,8 @@
 }
 
 
+
+
 </style>
 
 
@@ -51,6 +53,21 @@
                             {{ form.media }}
                             {{form.content}}
 
+                            <br><br><br><br>
+                            <div class="row">
+
+                               <div class="col-7"></div>
+                                <div class="col-2">
+                                    {{ form.publish_from|as_crispy_field }}
+                                </div>
+                                <div class="col-1"></div>
+                                <div class="col-2">
+                                    {{ form.publish_to|as_crispy_field }}
+                                </div>
+
+
+                            </div>
+
                         </div>
 
                         <div class="col-sm-2">
@@ -82,10 +99,9 @@
                                     {{ form.featured_image|as_crispy_field }}
 
                                     <br><br>
-                                    {{ form.publish_from|as_crispy_field }}
-                                    {{ form.publish_to|as_crispy_field }}
 
-<!--                                <button class="btn btn-secondary " type="submit">Save Post</button>-->
+
+                                    <!--                                <button class="btn btn-secondary " type="submit">Save Post</button>-->
                                 </div>
                             </div>
 

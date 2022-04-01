@@ -96,29 +96,27 @@
                         <div class="btn-group" id="btn-group">
 
 
-                            {% if post.is_published %}
-                            <button type="button" class="btn btn-default">Published</button>
-                            {% else %}
-                            <button type="button" class="btn btn-default">Unpublished</button>
-                            {% endif %}
 
-                            <form method="post" id="changePostStatusForm" data-url="{% url 'status_updated_url' post.id %}">
+                            <form method="post" id="changePostStatusForm"
+                                  data-url="{% url 'status_updated_url' post.id %}">
                                 {% csrf_token %}
 
-                            <div class="btn-group">
-                                <button type="button" class="btn btn-default dropdown-toggle dropdown-icon"
-                                        data-toggle="dropdown">
-                                </button>
-                                <div class="dropdown-menu" id="dropdown">
+
+                                <button type="button" class="btn btn-secondary unPubBtn" data-id="{{post.slug}}"
+                                        href="#">
                                     {% if post.is_published %}
-                                    <button id="unPubBtn" type="button" class="dropdown-item" data-id="{{post.slug}}" href="#">UnPublish</button>
+                                    Published
                                     {% else %}
-                                    <button id="pubBtn" type="button" class="dropdown-item" data-id="{{post.slug}}" href="#">Publish</button>
+                                    Not Published
                                     {% endif %}
-                                </div>
-                            </div>
+
+                                </button>
+
+
 
                             </form>
+
+
                         </div>
 
 

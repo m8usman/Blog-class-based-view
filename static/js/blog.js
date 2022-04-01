@@ -1,66 +1,35 @@
 $ (document).ready(function(){
-
         var csrfToken = $("input[name=csrfmiddlewaretoken]").val();
+        var $loader = '<i class="fa fa-spinner fa-spin"></i>'
 
-//        $("#unPubBtn").click(function(){
-//
-////            var serializedData = $("#changePostStatusForm").serialize();
-//
-//            var dataId = $(this).data('id');
-//
-//            $.ajax({
-//                url: '/post/' + dataId + '/updated/',
-//                data:{
-//                    csrfmiddlewaretoken: csrfToken,
-//                    id: dataId
-//                },
-//                type: 'post',
-//                success: function(){
-//                    console.log('success')
-//                }
-//            })
-//
-//        });
-
-
-
-       $("#unPubBtn").click(function(){
-
-            var dataId = $(this).data('id');
-
+       $(".unPubBtn").click(function(){
+            var $clickedBtn = $(this);
+            var orignalContent = $clickedBtn.text();
+            var postId = $clickedBtn.data('id');
+            $clickedBtn.html($loader).attr('disabled', 'disabled');
             $.ajax({
-                url: '/post/' + dataId + '/unpublished/',
+                url: '/post/' + postId + '/update-status/',
                 data:{
                     csrfmiddlewaretoken: csrfToken,
-                    id: dataId
+                    id: postId
                 },
                 type: 'post',
-                success: function(){
-                $("#dropdown").append('<button id="pubBtn" type="button" class="dropdown-item" data-id="{{post.id}}" href="#">Publish</button>')
-
-                }
-            });
-
-       });
-
-
-       $("#pubBtn").click(function(){
-
-            var dataId = $(this).data('id');
-
-            $.ajax({
-                url: '/post/' + dataId + '/published/',
-                data:{
-                    csrfmiddlewaretoken: csrfToken,
-                    id: dataId
+                success: function(resp){
+                    console.log(resp)
+                    if(resp.is_published === true){
+                        $clickedBtn.html('Published').removeClass('btn-danger').addClass('btn-success');;
+                    }else{
+                        $clickedBtn.html('Unpublished').removeClass('btn-success').addClass('btn-danger');
+                    }
                 },
-                type: 'post',
-                success: function(){
-                $("#dropdown").append('<button id="pubBtn" type="button" class="dropdown-item" data-id="{{post.id}}" href="#">Publish</button>')
+                complete: function(){
 
+                    $clickedBtn.removeAttr('disabled');
+                },
+                error: function(error){
+                    alert("Internal 500 error.");
+                    $clickedBtn.html(orignalContent);
                 }
             });
-
        });
-
 });

@@ -20,6 +20,11 @@ class Posts(ListView):
     context_object_name = 'posts'
     paginate_by = 6
 
+    def get_queryset(self):
+        queryset = Post.objects.all()
+
+        return queryset
+
 
 class PostView(DetailView):
     model = Post
@@ -98,26 +103,26 @@ class DashboardView(TemplateView):
         return context
 
 
-class StatusUnPublishView(SuccessMessageMixin, View):
-    success_message = 'status updated successfully!!!!'
+class StatusUpdateView(SuccessMessageMixin, View):
 
     def post(self, request, slug):
         post = Post.objects.get(slug=slug)
-        post.is_published = False
+
+        if post.is_published:
+            post.is_published = False
+        else:
+            post.is_published = True
+
         post.save()
-        messages.success(self.request, "Post unpublished")
-        return JsonResponse({'post': model_to_dict(post)}, status=200)
 
+        return JsonResponse(data={
+            'id': post.id,
+            'slug': post.slug,
+            'featured_image': post.featured_image.url,
+            'title': post.title,
+            'is_published': post.is_published,
 
-class StatusPublishView(SuccessMessageMixin, View):
-    success_message = 'status updated successfully!!!!'
-
-    def post(self, request, slug):
-        post = Post.objects.get(slug=slug)
-        post.is_published = True
-        post.save()
-        messages.success(self.request, "Post Published")
-        return JsonResponse({'post': model_to_dict(post)}, status=200)
+        }, status=200)
 
 
 

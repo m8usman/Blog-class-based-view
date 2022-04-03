@@ -10,6 +10,7 @@ urlpatterns = [
     path('', include('users.urls')),
     path('', include('posts.urls')),
     path('', include('taxonomies.urls')),
+
     path('jsi18n', JavaScriptCatalog.as_view(), name='js-catlog'),
 
     path('reset_password/', auth_views.PasswordResetView.as_view(template_name="reset_password.html"),

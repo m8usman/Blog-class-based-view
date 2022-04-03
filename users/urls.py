@@ -9,9 +9,9 @@ urlpatterns = [
 
     path('profiles', views.Profiles.as_view(), name="profiles"),
     path('profile/<str:pk>/', views.UserProfile.as_view(), name="user-profile"),
-    path('account/', views.UserAccount.as_view(), name="account"),
+    path('staff/account/', views.UserAccount.as_view(), name="account"),
 
-    path('edit-account/<str:pk>/', views.EditAccount.as_view(), name="edit-account"),
+    path('staff/edit-account/<str:pk>/', views.EditAccount.as_view(), name="edit-account"),
 
     # path('reset/<str:pk>/', views.ResetPassword.as_view(template_name="reset.html"),
     #      name="password_reset_confirm"),

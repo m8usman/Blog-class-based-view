@@ -10,6 +10,7 @@ from django.contrib import messages
 
 from posts.forms import PostForm
 from posts.models import Post, Comment
+from taxonomies.forms import CategoryForm
 from taxonomies.models import Category, Tag
 from users.models import User
 
@@ -26,12 +27,26 @@ class Posts(ListView):
         return queryset
 
 
+class PostsStaff(LoginRequiredMixin, ListView):
+    model = Post
+    template_name = 'posts/posts_staff.html'
+    context_object_name = 'posts'
+    paginate_by = 6
+
+    def get_queryset(self):
+        queryset = Post.objects.all()
+
+        return queryset
+
+
 class PostView(DetailView):
     model = Post
     template_name = 'posts/single-post.html'
+    page = 'single-post'
 
 
 class PostCreateView(LoginRequiredMixin, CreateView):
+    template_name= 'posts/post_form.html'
     model = Post
     form_class = PostForm
 
@@ -69,7 +84,7 @@ class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 
 class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Post
-    success_url = '/'
+    success_url = '/staff'
 
     def test_func(self):
         post = self.get_object()
@@ -90,7 +105,7 @@ def add_comment(request, slug):
     return redirect('post', slug=slug)
 
 
-class DashboardView(TemplateView):
+class DashboardView(LoginRequiredMixin, TemplateView):
     template_name = 'posts/dashboard.html'
 
     def get_context_data(self, **kwargs):
@@ -103,7 +118,7 @@ class DashboardView(TemplateView):
         return context
 
 
-class StatusUpdateView(SuccessMessageMixin, View):
+class StatusUpdateView(LoginRequiredMixin, SuccessMessageMixin, View):
 
     def post(self, request, slug):
         post = Post.objects.get(slug=slug)
@@ -123,7 +138,3 @@ class StatusUpdateView(SuccessMessageMixin, View):
             'is_published': post.is_published,
 
         }, status=200)
-
-
-
-

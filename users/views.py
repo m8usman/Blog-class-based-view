@@ -12,13 +12,7 @@ from .forms import CustomUserCreationForm, ProfileForm, LoginForm, CustomPasswor
 class LoginUser(FormView):
     form_class = LoginForm
     template_name = 'users/login.html'
-    success_url = '/account'
-
-    def get_context_data(self, **kwargs):
-        queryset = kwargs.pop('object_list', None)
-        if queryset is None:
-            self.object_list = self.model.objects.all()
-        return super().get_context_data(**kwargs)
+    success_url = '/staff/dashboard'
 
     def form_valid(self, form):
 
@@ -48,7 +42,7 @@ class RegisterUser(CreateView):
         user = form.save()
         messages.success(self.request, 'User account was created!')
         login(self.request, user)
-        return redirect('/edit-account/'+str(user.profile.id)+'/')
+        return redirect('/staff/edit-account/'+str(user.profile.id)+'/')
 
     def get_context_data(self, **kwargs):
         queryset = kwargs.pop('object_list', None)
@@ -79,7 +73,7 @@ class EditAccount(LoginRequiredMixin, UpdateView):
     template_name = 'users/profile_form.html'
     model = Profile
     form_class = ProfileForm
-    success_url = reverse_lazy('account')
+    success_url = '/staff/account'
 
     def get_context_data(self, **kwargs):
         queryset = kwargs.pop('object_list', None)

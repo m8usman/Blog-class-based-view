@@ -8,8 +8,6 @@
 }
 
 
-
-
 </style>
 
 
@@ -39,7 +37,7 @@
             <div class="card-body">
 
 
-                <form enctype="multipart/form-data" method="POST">
+                <form enctype="multipart/form-data" name="postForm" method="POST">
                     {% csrf_token %}
 
                     <div class="row">
@@ -56,7 +54,7 @@
                             <br><br><br><br>
                             <div class="row">
 
-                               <div class="col-7"></div>
+                                <div class="col-7"></div>
                                 <div class="col-2">
                                     {{ form.publish_from|as_crispy_field }}
                                 </div>
@@ -79,19 +77,38 @@
                                 </div>
                                 <div class="col-sm-11">
 
-                                    <div style='max-height:185px; overflow:scroll;'>
+                                    <div style='max-height:185px; overflow:scroll; overflow-x: hidden;'>
 
                                         {{ form.categories|as_crispy_field }}
 
+
                                     </div>
+
+                                    <button id="addCategory" type="button" class="btn btn-success btn-block btn-sm mt-3"
+                                            data-toggle="modal"
+                                            data-target="#categoryModal">
+                                        <i class="fas fa-plus">
+                                        </i>
+                                        Add New Category
+                                    </button>
+
 
                                     <br><br>
 
-                                    <div style='max-height:185px; overflow:scroll;'>
+                                    <div style='max-height:185px; overflow:scroll; overflow-x: hidden;'>
 
                                         {{ form.tags|as_crispy_field }}
 
                                     </div>
+
+                                    <button id="addTag" type="button" class="btn btn-success btn-block btn-sm mt-3"
+                                            data-toggle="modal"
+                                            data-target="#tagModal">
+                                        <i class="fas fa-plus">
+                                        </i>
+                                        Add New Category
+                                    </button>
+
 
                                     <br><br>
 
@@ -111,7 +128,7 @@
 
 
                     <div class="form-group">
-                        <button class="btn btn-secondary float-right" type="submit">Save Post</button>
+                        <button class="btn btn-success float-right" type="submit">Save Post</button>
                     </div>
                 </form>
 
@@ -121,6 +138,118 @@
 
     </div>
 </section>
+
+
+<div class="modal fade text-left" id="categoryModal">
+    <div class="modal-dialog">
+        <form method="POST" id="createCategoryForm" novalidate="novalidate" name="categoryForm"
+              data-url="{% url 'category-create' %}" action="{% url 'category-create' %}">
+            {% csrf_token %}
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Add New Category</h4>
+                    <button type="button" class="close" data-dismiss="modal"
+                            aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+
+                    <fieldset class="form-group">
+                        <!--                        form2.name|as_crispy_field}}-->
+                        <!--                        form2.description|as_crispy_field}}-->
+                        <div id="div_category_name" class="form-group">
+                            <label for="id_name" class=" requiredField">
+                                Name<span class="asteriskField">*</span>
+                            </label>
+                            <div>
+                                <input type="text" name="name" maxlength="200"
+                                       class="textinput textInput form-control" required="" id="id_category_name"
+                                       required="true" required>
+                            </div>
+                        </div>
+                        <div id="div_category_description" class="form-group">
+                            <label for="id_description" class="">
+                                Description
+                            </label>
+                            <div>
+                                    <textarea name="description" cols="40" rows="10" maxlength="300"
+                                              class="textarea form-control" id="id_category_description"></textarea>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-default"
+                            data-dismiss="modal">Close
+                    </button>
+                    <button id="createCategoryBtn" class="btn btn-success float-right" type="button">Add Category
+                    </button>
+                </div>
+            </div>
+
+        </form>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+<div class="modal fade text-left" id="tagModal">
+    <div class="modal-dialog">
+        <form method="POST" id="createTagForm" novalidate="novalidate" name="tagForm" data-url="{% url 'tag-create' %}"
+              action="{% url 'tag-create' %}">
+            {% csrf_token %}
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Add New Tag</h4>
+                    <button type="button" class="close" data-dismiss="modal"
+                            aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+
+                    <fieldset class="form-group">
+                        <!--                        form2.name|as_crispy_field}}-->
+                        <!--                        form2.description|as_crispy_field}}-->
+                        <div id="div_tag_name" class="form-group">
+                            <label for="id_name" class=" requiredField">
+                                Name<span class="asteriskField">*</span>
+                            </label>
+                            <div>
+                                <input type="text" name="name" maxlength="200"
+                                       class="textinput textInput form-control" required="" id="id_tag_name"
+                                       required="true" required>
+                            </div>
+                        </div>
+                        <div id="div_tag_description" class="form-group">
+                            <label for="id_description" class="">
+                                Description
+                            </label>
+                            <div>
+                                    <textarea name="description" cols="40" rows="10" maxlength="300"
+                                              class="textarea form-control" id="id_tag_description"></textarea>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-default"
+                            data-dismiss="modal">Close
+                    </button>
+                    <button id="createTagBtn" class="btn btn-success float-right" type="button">Add Tag</button>
+                </div>
+            </div>
+
+        </form>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
 
 
 {% endblock content %}

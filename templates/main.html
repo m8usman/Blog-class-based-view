@@ -9,6 +9,8 @@
     <!-- App favicon -->
     <link rel="shortcut icon" href="assets/images/favicon.ico"/>
 
+    <link rel="stylesheet" href="{% static 'css/blog.css' %}">
+
     {% if user.is_authenticated %}
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
@@ -23,16 +25,17 @@
     <script src="{% static '/admin/js/core.js' %}"></script>
     <link rel="stylesheet" href="{% static 'admin/css/widgets.css' %}">
 
-        {% endif %}
+    {% endif %}
 
     {% if not user.is_authenticated %}
 
-    <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Homepage 1</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&amp;display=swap">
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&amp;display=swap">
     <link rel="stylesheet" href="https://kit-pro.fontawesome.com/releases/v5.13.0/css/pro.min.css">
     <!--build:css assets/css/styles.min.css-->
     <link rel="stylesheet" href="{% static 'css/elegant.css' %}">
@@ -41,20 +44,21 @@
     <link rel="stylesheet" href="{% static 'css/plyr.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 
+
     <!--endbuild-->
-  </head>
+</head>
 
-    {% endif %}
+{% endif %}
 
 
-    {% block extra_css %}{% endblock %}
+{% block extra_css %}{% endblock %}
 
 </head>
 
 <body class="hold-transition sidebar-mini">
+
 <div class="wrapper">
     {% include 'navbar.html' %}
-
 
 
     {% if user.is_authenticated %}
@@ -62,7 +66,7 @@
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper" style="min-height: 2646.44px;">
 
-                    {% endif %}
+        {% endif %}
 
         {% if messages %}
 
@@ -80,7 +84,7 @@
 
         {% endblock content %}
     </div>
-  <!-- /.content-wrapper -->
+    <!-- /.content-wrapper -->
 
 
     <!-- Control Sidebar -->
@@ -91,7 +95,7 @@
 </div>
 <!-- ./wrapper -->
 
-    {% if user.is_authenticated %}
+{% if user.is_authenticated %}
 
 <!-- jQuery -->
 <script src="{% static 'plugins/jquery/jquery.min.js' %}"></script>
@@ -99,27 +103,28 @@
 <script src="{% static 'plugins/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
 <!-- AdminLTE App -->
 <script src="{% static 'dist/js/adminlte.min.js' %}"></script>
- <script src="{% static 'js/jquery.bootstrap.modal.forms.min.js' %}"></script>
-
+<script src="{% static 'js/jquery.bootstrap.modal.forms.min.js' %}"></script>
+<script src="{% static 'plugins/jquery-validation/additional-methods.min.js' %}"></script>
+<script src="{% static 'plugins/jquery-validation/jquery.validate.min.js' %}"></script>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="{% static 'js/blog.js' %}"></script>
 
-        {% endif %}
+{% endif %}
 
-    {% if not user.is_authenticated %}
+{% if not user.is_authenticated %}
 
-    <!--build:js {% static 'js/main.min.js-->
-    <script rel="script/javascript" src="{% static 'js/jquery.min.js' %}"></script>
-    <script rel="script/javascript" src="{% static 'js/slick.min.js' %}"></script>
-    <script rel="script/javascript" src="{% static 'js/plyr.min.js' %}"></script>
-    <script rel="script/javascript" src="{% static 'js/masonry.pkgd.min.js' %}"></script>
-    <script rel="script/javascript" src="{% static 'js/imagesloaded.pkgd.min.js' %}"></script>
-    <script rel="script/javascript" src="{% static 'js/vimeo.player.min.js' %}"></script>
-    <script rel="script/javascript" src="{% static 'js/main.js' %}"></script>
-    <!--endbuild-->
+<!--build:js {% static 'js/main.min.js-->
+<script rel="script/javascript" src="{% static 'js/jquery.min.js' %}"></script>
+<script rel="script/javascript" src="{% static 'js/slick.min.js' %}"></script>
+<script rel="script/javascript" src="{% static 'js/plyr.min.js' %}"></script>
+<script rel="script/javascript" src="{% static 'js/masonry.pkgd.min.js' %}"></script>
+<script rel="script/javascript" src="{% static 'js/imagesloaded.pkgd.min.js' %}"></script>
+<script rel="script/javascript" src="{% static 'js/vimeo.player.min.js' %}"></script>
+<script rel="script/javascript" src="{% static 'js/main.js' %}"></script>
+<!--endbuild-->
 
-        {% endif %}
+{% endif %}
 
 {% block extra_js %}{% endblock %}
 

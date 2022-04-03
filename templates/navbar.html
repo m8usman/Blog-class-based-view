@@ -1,8 +1,8 @@
 {% load static %}
 
+
 {% if user.is_authenticated %}
 
-{% if not page == 'single-post' %}
 <!-- Navbar -->
 <nav class="main-header navbar navbar-expand navbar-white navbar-light">
     <!-- Left navbar links -->
@@ -137,7 +137,8 @@
     </ul>
 </nav>
 <!-- /.navbar -->
-{% endif %}
+
+
 
 <!-- Main Sidebar Container -->
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
@@ -246,52 +247,6 @@
     </div>
     <!-- /.sidebar -->
 </aside>
-
-{% endif %}
-
-
-{% if not user.is_authenticated %}
-
-<header class="theme-default">
-    <div id="search-box" style="display: none;">
-        <div class="container">
-            <form action="/" method="POST">
-                <input type="text" placeholder="Searching for news" name="search">
-                <button><i class="fas fa-arrow-right"></i></button>
-            </form>
-        </div>
-    </div>
-    <div class="container">
-        <div class="header-wrapper"><a class="header__logo" href="{% url 'account' %}">
-            <!--          <img src="./assets/images/logo.png" alt="Logo">-->
-        </a>
-            <nav style="">
-                <ul>
-
-                    <li class="nav-item active"><a href="{% url 'posts' %}">Home</a>
-
-                    </li>
-                    <li class="nav-item"><a>Blog</a>
-                        <!--                <ul class="dropdown-menu">-->
-                        <!--                  <li><a href="blog_category_grid.html">BLOG CATEGORY GRID</a></li>-->
-                        <!--                  <li><a href="blog_category_list.html">BLOG CATEGORY LIST</a></li>-->
-                        <!--    -->
-                        <!--                </ul>-->
-                    </li>
-
-                    <li class="nav-item"><a href="about.html">About</a></li>
-                    <li class="nav-item"><a href="contact.html">Contact</a></li>
-                </ul>
-            </nav>
-            <div class="header__icon-group"><a href="#" id="search"><i class="fas fa-search"></i></a>
-                <div class="social"><a href="#"><i class="fab fa-facebook-f"></i></a><a href="#"><i
-                        class="fab fa-twitter"></i></a><a href="#"><i class="fab fa-instagram"></i></a><a href="#"><i
-                        class="fab fa-dribbble"></i></a><a id="mobile-menu-controller" href="#"><i
-                        class="fas fa-bars"></i></a></div>
-            </div>
-        </div>
-    </div>
-</header>
 
 {% endif %}
 

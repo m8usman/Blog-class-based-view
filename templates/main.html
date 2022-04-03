@@ -11,7 +11,6 @@
 
     <link rel="stylesheet" href="{% static 'css/blog.css' %}">
 
-    {% if user.is_authenticated %}
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -25,30 +24,8 @@
     <script src="{% static '/admin/js/core.js' %}"></script>
     <link rel="stylesheet" href="{% static 'admin/css/widgets.css' %}">
 
-    {% endif %}
-
-    {% if not user.is_authenticated %}
-
-
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Homepage 1</title>
-    <link rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&amp;display=swap">
-    <link rel="stylesheet" href="https://kit-pro.fontawesome.com/releases/v5.13.0/css/pro.min.css">
-    <!--build:css assets/css/styles.min.css-->
-    <link rel="stylesheet" href="{% static 'css/elegant.css' %}">
-    <link rel="stylesheet" href="{% static 'css/custom_bootstrap.css' %}">
-    <link rel="stylesheet" href="{% static 'css/slick.css' %}">
-    <link rel="stylesheet" href="{% static 'css/plyr.min.css' %}">
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
-
-
-    <!--endbuild-->
 </head>
 
-{% endif %}
 
 
 {% block extra_css %}{% endblock %}
@@ -95,7 +72,6 @@
 </div>
 <!-- ./wrapper -->
 
-{% if user.is_authenticated %}
 
 <!-- jQuery -->
 <script src="{% static 'plugins/jquery/jquery.min.js' %}"></script>
@@ -110,21 +86,9 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="{% static 'js/blog.js' %}"></script>
 
-{% endif %}
 
-{% if not user.is_authenticated %}
 
-<!--build:js {% static 'js/main.min.js-->
-<script rel="script/javascript" src="{% static 'js/jquery.min.js' %}"></script>
-<script rel="script/javascript" src="{% static 'js/slick.min.js' %}"></script>
-<script rel="script/javascript" src="{% static 'js/plyr.min.js' %}"></script>
-<script rel="script/javascript" src="{% static 'js/masonry.pkgd.min.js' %}"></script>
-<script rel="script/javascript" src="{% static 'js/imagesloaded.pkgd.min.js' %}"></script>
-<script rel="script/javascript" src="{% static 'js/vimeo.player.min.js' %}"></script>
-<script rel="script/javascript" src="{% static 'js/main.js' %}"></script>
-<!--endbuild-->
 
-{% endif %}
 
 {% block extra_js %}{% endblock %}
 

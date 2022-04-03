@@ -119,7 +119,7 @@ class TagUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 
 class TagDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Tag
-    success_url = 'staff/tags'
+    success_url = '/staff/tags'
 
     def test_func(self):
         tag = self.get_object()
@@ -152,7 +152,7 @@ class CategoryUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 
 class CategoryDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Category
-    success_url = 'staff/categories'
+    success_url = '/staff/categories'
 
     def test_func(self):
         category = self.get_object()

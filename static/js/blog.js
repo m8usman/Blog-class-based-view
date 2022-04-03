@@ -9,7 +9,7 @@ $ (document).ready(function(){
             var postId = $clickedBtn.data('id');
             $clickedBtn.html($loader).attr('disabled', 'disabled');
             $.ajax({
-                url: '/post/' + postId + '/update-status/',
+                url: 'staff/post/' + postId + '/update-status/',
                 data:{
                     csrfmiddlewaretoken: csrfToken,
                     id: postId

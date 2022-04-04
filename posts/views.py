@@ -4,16 +4,13 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.db.models import Q
-from django.forms import model_to_dict
 from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import View
 from django.views.generic import ListView, DetailView, DeleteView, CreateView, UpdateView, TemplateView
 from django.contrib import messages
-
 from posts.forms import PostForm
 from posts.models import Post, Comment
-from taxonomies.forms import CategoryForm
 from taxonomies.models import Category, Tag
 from users.models import User
 
@@ -42,8 +39,7 @@ class PostsStaff(LoginRequiredMixin, ListView):
     paginate_by = 6
 
     def get_queryset(self):
-        queryset = Post.objects.all()
-
+        queryset = Post.objects.filter(created_by=self.request.user)
         return queryset
 
 
@@ -118,12 +114,14 @@ class DashboardView(LoginRequiredMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        posts = Post.objects.count()
-        comments = Comment.objects.count()
-        tags = Tag.objects.count()
-        categories = Category.objects.count()
+        posts = Post.objects.filter(created_by=self.request.user).count()
+        comments = Comment.objects.filter(created_by=self.request.user).count()
+        tags = Tag.objects.filter(created_by=self.request.user).count()
+        categories = Category.objects.filter(created_by=self.request.user).count()
         context = {'posts': posts, 'comments': comments, 'tags': tags, 'categories': categories}
         return context
+
+
 
 
 class StatusUpdateView(LoginRequiredMixin, SuccessMessageMixin, View):

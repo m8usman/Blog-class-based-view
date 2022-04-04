@@ -1,17 +1,11 @@
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from django.http import JsonResponse
-from django.shortcuts import render
 from django.views import View
 from django.views.generic import ListView
-from django.views.generic.edit import FormMixin, CreateView, UpdateView, DeleteView
-
-from posts.forms import PostForm
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from posts.models import Post
 from .forms import TagForm, CategoryForm
 from .models import Tag, Category
-
 from django.http import JsonResponse
-from django.forms.models import model_to_dict
 
 
 class TagListView(LoginRequiredMixin, CreateView, ListView):
@@ -19,13 +13,32 @@ class TagListView(LoginRequiredMixin, CreateView, ListView):
     form_class = TagForm
     template_name = 'taxonomies/tags.html'
     context_object_name = 'tags'
-    success_url = 'staff/tags'
+    success_url = '/staff/tags'
     paginate_by = 8
 
     def get_context_data(self, **kwargs):
         queryset = kwargs.pop('object_list', None)
         if queryset is None:
-            self.object_list = self.model.objects.all()
+            self.object_list = self.model.objects.filter(created_by=self.request.user)
+        return super().get_context_data(**kwargs)
+
+    def form_valid(self, form):
+        form.instance.created_by = self.request.user
+        return super().form_valid(form)
+
+
+class CategoryListView(LoginRequiredMixin, CreateView, ListView):
+    model = Category
+    form_class = CategoryForm
+    template_name = 'taxonomies/categories.html'
+    context_object_name = 'categories'
+    success_url = '/staff/categories'
+    paginate_by = 8
+
+    def get_context_data(self, **kwargs):
+        queryset = kwargs.pop('object_list', None)
+        if queryset is None:
+            self.object_list = self.model.objects.filter(created_by=self.request.user)
         return super().get_context_data(**kwargs)
 
     def form_valid(self, form):
@@ -75,25 +88,6 @@ class CreateTagView(LoginRequiredMixin, View):
             )
 
         return JsonResponse({'tagId': new_tag.id}, status=200)
-
-
-class CategoryListView(LoginRequiredMixin, CreateView, ListView):
-    model = Category
-    form_class = CategoryForm
-    template_name = 'taxonomies/categories.html'
-    context_object_name = 'categories'
-    success_url = 'staff/categories'
-    paginate_by = 8
-
-    def get_context_data(self, **kwargs):
-        queryset = kwargs.pop('object_list', None)
-        if queryset is None:
-            self.object_list = self.model.objects.all()
-        return super().get_context_data(**kwargs)
-
-    def form_valid(self, form):
-        form.instance.created_by = self.request.user
-        return super().form_valid(form)
 
 
 class TagUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):

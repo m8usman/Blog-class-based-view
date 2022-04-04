@@ -6,6 +6,7 @@ from django.views.generic import ListView
 from django.views.generic.edit import FormMixin, CreateView, UpdateView, DeleteView
 
 from posts.forms import PostForm
+from posts.models import Post
 from .forms import TagForm, CategoryForm
 from .models import Tag, Category
 
@@ -159,3 +160,26 @@ class CategoryDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         if self.request.user == category.created_by:
             return True
         return False
+
+
+class TagPostList(ListView):
+    model = Post
+    template_name = 'taxonomies/tag_post_list.html'
+    context_object_name = 'posts'
+    paginate_by = 4
+
+    def get_queryset(self):
+        slug = self.kwargs['slug']
+        return Post.objects.all().filter(tags__slug=slug)
+
+
+class CategoryPostList(ListView):
+    model = Post
+    template_name = 'taxonomies/category_post_list.html'
+    context_object_name = 'posts'
+    paginate_by = 4
+
+    def get_queryset(self):
+        slug = self.kwargs['slug']
+        return Post.objects.all().filter(categories__slug=slug)
+

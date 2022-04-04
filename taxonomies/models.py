@@ -15,7 +15,7 @@ class Category(models.Model):
     id = models.UUIDField(default=uuid.uuid4, unique=True,
                           primary_key=True, editable=False)
     created_by = models.ForeignKey(User, on_delete=models.CASCADE)
-    slug = models.SlugField(null=True, unique=True)
+    slug = models.SlugField(unique=True)
 
     def __str__(self):
         return self.name
@@ -37,7 +37,7 @@ class Tag(models.Model):
     id = models.UUIDField(default=uuid.uuid4, unique=True,
                           primary_key=True, editable=False)
     created_by = models.ForeignKey(User, on_delete=models.CASCADE)
-    slug = models.SlugField(null=True, unique=True)
+    slug = models.SlugField(unique=True)
 
     def __str__(self):
         return self.name

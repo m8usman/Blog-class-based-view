@@ -20,7 +20,7 @@ class Post(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     is_published = models.BooleanField(default=False)
-    publish_from = models.DateTimeField(default=datetime.now(), blank=True)
+    publish_from = models.DateTimeField(null=True, blank=True)
     publish_to = models.DateTimeField(null=True, blank=True)
     id = models.UUIDField(default=uuid.uuid4, unique=True,
                           primary_key=True, editable=False)

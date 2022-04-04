@@ -1,6 +1,9 @@
+import datetime
+
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.messages.views import SuccessMessageMixin
+from django.db.models import Q
 from django.forms import model_to_dict
 from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
@@ -22,8 +25,13 @@ class Posts(ListView):
     paginate_by = 6
 
     def get_queryset(self):
-        queryset = Post.objects.all()
-
+        current_datetime = datetime.datetime.now()
+        queryset = Post.objects.filter(is_published=True)
+        queryset = queryset.filter(
+            Q(publish_from__lte=current_datetime, publish_to__gte=current_datetime) |
+            Q(publish_from__lte=current_datetime, publish_to__isnull=True) |
+            Q(publish_to__gte=current_datetime, publish_from__isnull=True)
+        ).distinct()
         return queryset
 
 

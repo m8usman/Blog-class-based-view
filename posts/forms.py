@@ -15,12 +15,12 @@ class CommentForm(ModelForm):
 
 
 class PostForm(ModelForm):
-    publish_from = forms.SplitDateTimeField(widget=AdminSplitDateTime())
-    publish_to = forms.SplitDateTimeField(widget=AdminSplitDateTime())
+    publish_from = forms.SplitDateTimeField(required=False, widget=AdminSplitDateTime())
+    publish_to = forms.SplitDateTimeField(required=False, widget=AdminSplitDateTime())
 
     class Meta:
         model = Post
-        fields = ['title', 'description', 'content', 'featured_image', 'tags', 'categories', 'publish_from', 'publish_to', ]
+        fields = ['title', 'description', 'content', 'featured_image', 'tags', 'categories', 'publish_from', 'publish_to', 'is_published' ]
 
         widgets = {
             'tags': forms.CheckboxSelectMultiple(),
